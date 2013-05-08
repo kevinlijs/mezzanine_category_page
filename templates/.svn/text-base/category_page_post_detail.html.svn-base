@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load i18n future mezzanine_tags blog_tags keyword_tags disqus_tags %}
+
+{% block meta_title %}{{ page_post.category }}{% endblock %}
+
+{% block meta_keywords %}{% metablock %}
+{% keywords_for page as keywords %}
+{% for keyword in keywords %}
+	{% if not forloop.first %}, {% endif %}
+	{{ keyword }}
+{% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ page.description }}
+{% endmetablock %}{% endblock %}
+
+{% block title %}
+{% if summary %}
+	<h3>{{ summary.title }}</h3>
+	<p>{{ summary.description }}</p>
+{% endif %}
+{% endblock %}
+
+{% block style %}
+<style type="text/css">a,a:hover,a:visited{color:#68b5cc}a:hover{color:#109be0}.rslides_tabs li,.comment-author-admin > div.comment_wrap div.comment,.bypostauthor > div.comment_wrap div.comment,.itemwrap .itemaccent-text,.button,.comment-nav a,.sidebarAlert,.topline,input[type="submit"],input[type="reset"],input[type="button"],#wp-calendar tfoot #next a,#wp-calendar tfoot #prev a,.postwidget h6,.sticky .itemwrap,div.jp-interface{background-color:#2a2f33}.postwidget .titleSep{border-bottom:solid 2px #2a2f33}.comment-author-admin > div.comment_wrap .arrow,.bypostauthor > div.comment_wrap .arrow{border-right:10px solid #2a2f33}ul#comments ul.children .comment-author-admin > div.comment_wrap .arrow,ul#comments ul.children .bypostauthor > div.comment_wrap .arrow,.sidebarAlertArrow{border-bottom:10px solid #2a2f33}.adminNote,.itemwrap.color1 .itemaccent-text,.singleAccent.color1,.color1 .postlinks .button,.button.color1,.color1 .tick,#floatBanner.color1{background-color:#109be0}.itemwrap.color2 .itemaccent-text,.singleAccent.color2,.color2 .postlinks .button,.button.color2,.color2 .tick,#floatBanner.color2{background-color:#fa4300}.itemwrap.color3 .itemaccent-text,.singleAccent.color3,.color3 .postlinks .button,.button.color3,.color3 .tick,#floatBanner.color3{background-color:#ffa200}.itemwrap.color4 .itemaccent-text,.singleAccent.color4,.color4 .postlinks .button,.button.color4,.color4 .tick,#floatBanner.color4{background-color:#a6cc10}.itemwrap.color5 .itemaccent-text,.singleAccent.color5,.color5 .postlinks .button,.button.color5,.color5 .tick,#floatBanner.color5{background-color:#00cc99}.topAlert p a{color:#ffffff}::selection{background-color:rgba(16,155,224,.7)}::-moz-selection{background-color:rgba(16,155,224,.7)}::-webkit-selection{background-color:rgba(16,155,224,.7)}</style>
+{% endblock %}
+
+{% block main %}
+<div class="grid-full pageTitle">
+	<div class="color1 singleAccent hasPrev" style="display: block;">
+		<h5>{{ page_post.title }}</h5>
+		{% with page_post.get_previous_by_category as previous %}
+		<div class="prev"><a href="{{ previous.get_absolute_url }}" rel="prev"></a></div>
+		{% endwith %}
+		{% with page_post.get_next_by_category as next %}
+		<div class="next"><a href="{{ next.get_absolute_url }}" rel="next"></a></div>
+		{% endwith %}
+	
+	</div>
+	<!-- <h3>{{ page_post.title }}</h3> -->
+</div>
+
+<div class="clear"></div>
+
+<div id="" class="post type-post status-publish format-standard hentry category-free category-houses tag-houses tag-interior-design tag-japan color1">
+	<div class="postmedia grid-full">
+		{{ page_post.content|richtext_filter|safe }}
+	</div>
+</div>
+
+<div class="clear"></div>
+
+<div class="grid-content-left">
+	<!-- UY BEGIN -->
+	<div id="uyan_frame"></div>
+	<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1758873" async=""></script>
+	<!-- UY END -->
+</div>
+
+<div class="clear"></div>
+
+<div class="the_content grid-content-right">
+	<!-- Baidu Button BEGIN -->
+	<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+	<span class="bds_more">分享到：</span>
+	<a class="bds_qzone"></a>
+	<a class="bds_tsina"></a>
+	<a class="bds_tqq"></a>
+	<a class="bds_renren"></a>
+	<a class="bds_t163"></a>
+	<a class="shareCount"></a>
+	</div>
+	<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6637370" ></script>
+	<script type="text/javascript" id="bdshell_js"></script>
+	<script type="text/javascript">
+
+
+	document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+	</script>
+	<!-- Baidu Button END -->
+
+</div>
+
+{% endblock %}
+

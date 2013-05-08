@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load i18n future mezzanine_tags blog_tags keyword_tags disqus_tags %}
+
+{% block meta_title %}{{ category }}{% endblock %}
+
+{% block meta_keywords %}{% metablock %}
+{% keywords_for page as keywords %}
+{% for keyword in keywords %}
+	{% if not forloop.first %}, {% endif %}
+	{{ keyword }}
+{% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ page.description }}
+{% endmetablock %}{% endblock %}
+
+{% block title %}
+{% if summary %}
+	<h3>{{ summary.title }}</h3>
+	<p>{{ summary.description }}</p>
+{% endif %}
+{% endblock %}
+
+{% block main %}
+<div class="gallery listing isotope" style="position: relative; overflow: hidden; height: 968px;">
+	{% for page in page_posts %}
+	<div id="" class="post type-post status-publish format-video hentry category-media category-video tag-bunny tag-rabbit tag-self-hosted tag-video-2 grid-unit isotope-item">
+		<div class="itemwrap margon">
+			<a href="{{ page.get_absolute_url }}" title="Standard Size Thumbnail Gallery">
+			<img width="430" height="340" src="{{ MEDIA_URL }}{% thumbnail page.img_src 430 340 %}" class="imagescale hover wp-post-image"></a>
+
+			<p class="title" style="">
+				<a href="{{ page.get_absolute_url }}" title="Standard Size Thumbnail Gallery">{{ page.title }}</a>
+			</p>
+			<!-- <p class="itemmeta" style="">
+				<a href="" title="View all posts in Houses">Houses</a>
+			</p> -->
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+<div class="clear"></div>
+
+{% pagination_for page_posts %}
+
+{% endblock %}
+

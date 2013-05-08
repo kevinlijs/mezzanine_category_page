@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+{% load mezzanine_tags comment_tags keyword_tags rating_tags i18n future disqus_tags %}
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width">
+<meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+<meta name="description" content="{% block meta_description %}{% endblock %}">
+<title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}</title>
+<link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico">
+
+<link href="{{ STATIC_URL }}css/kube.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="{{ STATIC_URL }}css/screen.css" media="screen" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript" src="{{ STATIC_URL }}js/jquery.min.js"></script>
+	<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	{% block style %}{% endblock %}
+</head>
+<body>
+	<div class="wrapper">
+		<div class="row split">
+			<div class="twofifth">
+				{% with page_post.get_previous_by_category as previous %}
+				{% if previous %}
+					<a href="{{ previous.get_absolute_url }}"><img src="{{ STATIC_URL }}/img/btn_prev.png"></a><p style="display:inline; height:50px; line-height:50px;">{{ previous.title|slice:"20" }}</p>
+				{% else %}
+					<a><img src="{{ STATIC_URL }}/img/btn_prev.png"></a>
+				{% endif %}
+				{% endwith %}
+			</div>
+			<div class="fifth text-centered">
+				<a id="close" onclick="window.opener=null;window.open('','_self');window.close();" href=""><img src="{{ STATIC_URL }}/img/btn_close.png"></a>
+				
+			</div>
+			<div class="twofifth">
+				{% with page_post.get_next_by_category as next %}
+				{% if next %}
+					<p style="height:50px; line-height:50px; text-align:right;">{{ next.title|slice:"20" }}<a style="float:right" href="{{ next.get_absolute_url }}"><img src="{{ STATIC_URL }}/img/btn_next.png"></a>
+				{% else %}
+					<a style="float:right"><img src="{{ STATIC_URL }}/img/btn_next.png"></a>
+				{% endif %}
+				{% endwith %}
+			</div>
+		</div>
+
+		<div class="row text-centered">
+			<h2>{{ page_post.title }}</h2>
+		</div>
+
+		<div class="row">
+			<div class="threefifth">
+				{{ page_post.content|richtext_filter|safe }}
+			</div>
+			<div class="twofifth">
+				<div class="row">
+					<!-- <div class="half">
+						<button class="btn btn-big btn-full">Like</button>
+					</div>
+					<div class="half">
+						<div class="bsync-custom icon-long-orange"><a title="一键分享到各大微博和社交网络" class="bshare-bsync" onclick="javascript:bSync.share(event, 'bsharesync', {title:'{{ page_post.title }}', summary: '{{ page_post.description }}'})"></a><span class="BSHARE_COUNT bshare-share-count">0</span></div>
+						<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bsync.js#uuid=c493da34-3987-4eb6-8947-15d0970a8f2bc493da34-3987-4eb6-8947-15d0970a8f2b"></script>
+					</div> -->
+					<!-- Baidu Button BEGIN -->
+					<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+					<span class="bds_more">分享到：</span>
+					<a class="bds_qzone"></a>
+					<a class="bds_tsina"></a>
+					<a class="bds_tqq"></a>
+					<a class="bds_renren"></a>
+					<a class="bds_t163"></a>
+					<a class="shareCount"></a>
+					</div>
+					<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6637370" ></script>
+					<script type="text/javascript" id="bdshell_js"></script>
+					<script type="text/javascript">
+
+					
+					document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+					</script>
+					<!-- Baidu Button END -->
+				</div>
+				<p>
+					{{ page_post.description|slice:"150" }}
+				</p>
+				<div class="row text-centered">
+					<img src="{{ STATIC_URL }}/img/more.png">
+				</div>
+				<div class="row">
+					<!-- UY BEGIN -->
+					<div id="uyan_frame"></div>
+					<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1758873" async=""></script>
+					<!-- UY END -->
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
